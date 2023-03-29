@@ -20,6 +20,16 @@ export default class CarService {
     return totalCars;
   }
 
+  public async updateCar(id: string, car: ICar) {
+    const existCar = await this.model.updateCar(id, car);
+    if (existCar) {
+      return new Car(existCar);
+    }
+    if (!existCar) {
+      return null;
+    }
+  }
+
   public async getById(id: string) {
     const car = await this.model.getById(id);
     if (car) {
@@ -28,11 +38,5 @@ export default class CarService {
     if (!car) {
       return false;
     }
-  }
-
-  public async updateCar(id: string, car: ICar) {
-    const existCar = await this.model.updateCar(id, car);
-    if (existCar) return new Car(existCar);
-    if (!existCar) return null;
   }
 }
